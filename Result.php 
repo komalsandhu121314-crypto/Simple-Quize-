@@ -1,0 +1,102 @@
+<?php
+$questions = [
+    0 => 2,
+    1 => 1,
+    2 => 0,
+    3 => 1,
+    4 => 1,
+    5 => 1,
+    6 => 1,
+    7 => 2,
+    8 => 2,
+    9 => 1
+];
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST" ||
+    !isset($_POST["answers"]) ||
+    !is_array($_POST["answers"]) ||
+    count($_POST["answers"]) !== 10) {
+    die("Please answer all questions. <a href='index.php'>Go Back</a>");
+}
+
+$score = 0;
+
+foreach ($questions as $i => $correctAnswer) {
+    if (
+        isset($_POST["answers"][$i]) &&
+        (string)$_POST["answers"][$i] === (string)$correctAnswer
+    ) {
+        $score++;
+    }
+}
+
+$percentage = ($score / 10) * 100;
+
+if ($percentage >= 80) {
+    $remarks = "Excellent Performance!";
+} elseif ($percentage >= 60) {
+    $remarks = "Good Performance!";
+} elseif ($percentage >= 40) {
+    $remarks = "Average Performance!";
+} else {
+    $remarks = "Needs Improvement!";
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+            padding: 40px 20px;
+        }
+        .result {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 12px;
+        }
+        h1 {
+            color: #234b87;
+        }
+        .score {
+            font-size: 25px;
+            font-weight: bold;
+            color: #16834b;
+        }
+        p {
+            font-size: 18px;
+        }
+        a {
+            display: inline-block;
+            background: #234b87;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="result">
+    <h1>Quiz Result</h1>
+
+    <p class="score">
+        Your Score: <?php echo $score; ?>/10
+    </p>
+
+    <p>
+        Percentage: <?php echo number_format($percentage, 2); ?>%
+    </p>
+
+    <h2><?php echo htmlspecialchars($remarks); ?></h2>
+
+    <a href="index.php">Try Again</a>
+</div>
+</body>
+</html>
