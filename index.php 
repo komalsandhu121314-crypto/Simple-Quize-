@@ -1,0 +1,138 @@
+<?php
+$questions = [
+    [
+        "question" => "What does PHP stand for?",
+        "options" => [
+            "Personal Home Page",
+            "Private Home Page",
+            "PHP: Hypertext Preprocessor",
+            "Program Home Page"
+        ],
+        "answer" => 2
+    ],
+    [
+        "question" => "Which symbol is used to start a PHP variable?",
+        "options" => ["#", "$", "@", "&"],
+        "answer" => 1
+    ],
+    [
+        "question" => "Which function is used to display output in PHP?",
+        "options" => ["echo()", "show()", "display()", "printdata()"],
+        "answer" => 0
+    ],
+    [
+        "question" => "Which tag is used to write PHP code?",
+        "options" => ["<php>", "<?php ?>", "<script>", "<code>"],
+        "answer" => 1
+    ],
+    [
+        "question" => "Which operator is used for concatenation in PHP?",
+        "options" => ["+", ".", "*", "/"],
+        "answer" => 1
+    ],
+    [
+        "question" => "Which function counts elements in an array?",
+        "options" => ["size()", "count()", "total()", "length()"],
+        "answer" => 1
+    ],
+    [
+        "question" => "Which superglobal is used to collect form data sent using POST?",
+        "options" => ["$_GET", "$_POST", "$_SERVER", "$_SESSION"],
+        "answer" => 1
+    ],
+    [
+        "question" => "Which keyword is used to create a function in PHP?",
+        "options" => ["method", "define", "function", "create"],
+        "answer" => 2
+    ],
+    [
+        "question" => "Which symbol is used to end a PHP statement?",
+        "options" => [".", ":", ";", ","],
+        "answer" => 2
+    ],
+    [
+        "question" => "Which function is used to find the length of a string?",
+        "options" => ["count()", "strlen()", "length()", "strcount()"],
+        "answer" => 1
+    ]
+];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Quiz</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+            padding: 25px;
+        }
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+            color: #234b87;
+        }
+        .question {
+            background: #f5f7fb;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin: 10px;
+            cursor: pointer;
+        }
+        button {
+            background: #234b87;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #163765;
+        }
+        .submit {
+            text-align: center;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Simple Quiz</h1>
+    <p>Choose the correct answer for each question.</p>
+
+    <form action="result.php" method="POST">
+        <?php foreach ($questions as $i => $q): ?>
+            <div class="question">
+                <h3><?php echo ($i + 1) . ". " . htmlspecialchars($q["question"]); ?></h3>
+
+                <?php foreach ($q["options"] as $j => $option): ?>
+                    <label>
+                        <input type="radio"
+                               name="answers[<?php echo $i; ?>]"
+                               value="<?php echo $j; ?>"
+                               required>
+                        <?php echo htmlspecialchars($option); ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
+
+        <div class="submit">
+            <button type="submit">Submit Quiz</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
